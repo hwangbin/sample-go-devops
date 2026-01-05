@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # 1. 데이터베이스 서비스
+  db:
+    image: postgres
+    container_name: my-postgres
+    environment:
+      POSTGRES_PASSWORD: pass123
+    networks:
+      - my-network
+
+  # 2. Go 웹 앱 서비스
+  app:
+    build: .  # 현재 폴더의 Dockerfile로 빌드
+    container_name: my-running-app
+    ports:
+      - "1234:1234"
+    depends_on:
+      - db    # DB가 먼저 켜진 뒤에 앱을 실행함
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
