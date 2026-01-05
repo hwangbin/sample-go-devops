@@ -1,0 +1,13 @@
+name: Go CI
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@v4
+      
+      - name: 도커 빌드하기
+        run: docker build -t my-go-app .
